@@ -15,7 +15,7 @@ theme.confdir       = awful.util.getdir("config") .. "/themes/" .. theme.name
 
 
 -- {{{ Styles
-theme.font      = "Profont 8"
+theme.font      = "Monaco 11"
 
 -- {{{ Colors
 theme.fg_normal = "#DCDCCC"
