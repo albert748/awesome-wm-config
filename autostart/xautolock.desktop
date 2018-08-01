@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=xautolock
+TryExec=xautolock
+Exec=xautolock -time 10 -locker 'systemctl suspend'
+Terminal=false
+Type=Application
+StartupNotify=false
+Hidden=false
+OnlyShowIn=awesome
