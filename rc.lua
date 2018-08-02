@@ -165,17 +165,17 @@ do
         end
         customization.func.client_opaque_off(nil) -- prevent compmgr glitches
         if not restart then
-            awful.util.spawn_with_shell("rm -rf " .. awesome_autostart_once_fname)
-            awful.util.spawn_with_shell("rm -rf " .. awesome_client_tags_fname)
+            awful.spawn.with_shell("rm -rf " .. awesome_autostart_once_fname)
+            awful.spawn.with_shell("rm -rf " .. awesome_client_tags_fname)
             if not customization.option.tag_persistent_p then
-                awful.util.spawn_with_shell("rm -rf " .. awesome_tags_fname .. '*')
+                awful.spawn.with_shell("rm -rf " .. awesome_tags_fname .. '*')
             end
             bashets.stop()
         else -- if restart, save client tags
             -- save tags for each client
             awful.util.mkdir(awesome_client_tags_fname)
-            -- !! avoid awful.util.spawn_with_shell("mkdir -p " .. awesome_client_tags_fname) 
-            -- race condition (whether awesome_client_tags_fname is created) due to asynchrony of "spawn_with_shell"
+            -- !! avoid awful.spawn.with_shell("mkdir -p " .. awesome_client_tags_fname) 
+            -- race condition (whether awesome_client_tags_fname is created) due to asynchrony of "spawn.with_shell"
             for _, c in ipairs(client.get()) do
                 local client_id = c.pid .. '-' .. c.window
                 local f = io.open(awesome_client_tags_fname .. '/' .. client_id, 'w+')
@@ -239,13 +239,13 @@ do
 
     init_theme("zenburn")
 
-    awful.util.spawn_with_shell("hsetroot -solid '#000000'")
+    awful.spawn.with_shell("hsetroot -solid '#000000'")
 
     -- randomly select a background picture
     --{{
     function customization.func.change_wallpaper()
         if customization.option.wallpaper_change_p then
-            awful.util.spawn_with_shell("cd " .. config_path .. "/wallpaper/; ./my-wallpaper-pick.sh")
+            awful.spawn.with_shell("cd " .. config_path .. "/wallpaper/; ./my-wallpaper-pick.sh")
         end
     end
 
@@ -745,11 +745,11 @@ customization.func.client_opaque_more = function (c)
 end
 
 customization.func.client_opaque_off = function (c)
-  awful.util.spawn_with_shell("pkill " .. customization.default.compmgr)
+  awful.spawn.with_shell("pkill " .. customization.default.compmgr)
 end
 
 customization.func.client_opaque_on = function (c)
-  awful.util.spawn_with_shell(customization.default.compmgr.. " " .. customization.default.compmgr_args)
+  awful.spawn.with_shell(customization.default.compmgr.. " " .. customization.default.compmgr_args)
 end
 
 customization.func.client_swap_with_master = function (c) 
@@ -1489,7 +1489,7 @@ do
             timeout = 20,
             screen = awful.screen.focused(),
         })
-        awful.util.spawn_with_shell(tools.browser.primary .. " '" .. customization.config.help_url .. "'")
+        awful.spawn.with_shell(tools.browser.primary .. " '" .. customization.config.help_url .. "'")
     end
 end
 
@@ -1568,7 +1568,7 @@ customization.widgets.launcher = awful.widget.launcher({
 
 -- vicious widgets: http://awesome.naquadah.org/wiki/Vicious
 
-customization.widgets.cpuusage = awful.widget.graph()
+customization.widgets.cpuusage = wibox.widget.graph()
 customization.widgets.cpuusage:set_width(50)
 customization.widgets.cpuusage:set_background_color("#494B4F")
 customization.widgets.cpuusage:set_color({ 
@@ -1608,7 +1608,7 @@ do
     ))
 end
 
-customization.widgets.bat = awful.widget.progressbar()
+customization.widgets.bat = wibox.widget.progressbar()
 customization.widgets.bat.last_perc = nil
 customization.widgets.bat.warning_threshold = 10
 customization.widgets.bat.instance = "BAT0"
@@ -1681,7 +1681,7 @@ vicious.register(customization.widgets.mpdstatus, vicious.widgets.mpd,
     return ""
   end, 1)
 -- http://git.sysphere.org/vicious/tree/README
-customization.widgets.mpdstatus = wibox.layout.constraint(customization.widgets.mpdstatus, "max", 180, nil)
+customization.widgets.mpdstatus = wibox.container.constraint(customization.widgets.mpdstatus, "max", 180, nil)
 do
     customization.widgets.mpdstatus:buttons(awful.util.table.join(
     awful.button({ }, 1, function ()
@@ -1883,7 +1883,7 @@ function(s)
         )
 
     -- Create the wibox
-    customization.widgets.wibox[s] = awful.wibox({ position = "top", screen = s })
+    customization.widgets.wibox[s] = awful.wibar({ position = "top", screen = s })
 
     customization.widgets.wibox[s]:setup {
         layout = wibox.layout.align.horizontal,
@@ -2129,7 +2129,7 @@ end),
 
 awful.key({modkey}, "F3", function()
     local config_path = awful.util.getdir("config")
-    awful.util.spawn_with_shell(config_path .. "/bin/trackpad-toggle.sh")
+    awful.spawn.with_shell(config_path .. "/bin/trackpad-toggle.sh")
 end),
 
 awful.key({modkey}, "F4", function()
@@ -2919,5 +2919,5 @@ end
 
 -- XDG style autostart with "dex"
 -- HACK continue
-awful.spawn.with_shell("if ! [ -e " .. awesome_autostart_once_fname .. " ]; then dex -a -e awesome -v; touch " .. awesome_autostart_once_fname .. "; fi")
+awful.spawn.with_shell("if ! [ -e " .. awesome_autostart_once_fname .. " ]; then dex -a -e awesome; touch " .. awesome_autostart_once_fname .. "; fi")
 customization.func.client_opaque_on(nil) -- start xcompmgr
