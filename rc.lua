@@ -1958,13 +1958,13 @@ do
             end
         end
 
-        for s = 1, screen.count() do
-            local tags = awful.tag.gettags(s)
+        for s in screen do
+            local tags = s.tags
             if #tags >= 1 then
-                local fname = awesome_tags_fname .. "-selected." .. s
+                local fname = awesome_tags_fname .. "-selected." .. s.index
                 f = io.open(fname, "r")
                 if f then
-                    local tag = awful.tag.gettags(s)[tonumber(f:read("*l"))]
+                    local tag = tags[tonumber(f:read("*l"))]
                     if tag then
                         awful.tag.viewonly(tag)
                     end
@@ -1972,7 +1972,7 @@ do
                 end
                 os.remove(fname)
             else
-                local tag = awful.tag.add("main" .. s,
+                local tag = awful.tag.add("main" .. s.index,
                 {
                     screen = s,
                     layout = customization.default.property.layout,
@@ -1987,10 +1987,10 @@ do
 
     else
 
-        for s = 1, screen.count() do
-            local tags = awful.tag.gettags(s)
+        for s in screen do
+            local tags = s.tags
             if #tags < 1 then
-                local tag = awful.tag.add("main" .. s,
+                local tag = awful.tag.add("main" .. s.index,
                 {
                     screen = s,
                     layout = customization.default.property.layout,
