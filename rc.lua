@@ -1612,8 +1612,8 @@ customization.widgets.bat = wibox.widget.progressbar()
 customization.widgets.bat.last_perc = nil
 customization.widgets.bat.warning_threshold = 10
 customization.widgets.bat.instance = "BAT0"
-customization.widgets.bat:set_width(8)
-customization.widgets.bat:set_height(10)
+customization.widgets.bat.forced_width = 8
+customization.widgets.bat.forced_height = 10
 customization.widgets.bat:set_vertical(true)
 customization.widgets.bat:set_background_color("#494B4F")
 customization.widgets.bat:set_border_color(nil)
