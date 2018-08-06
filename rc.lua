@@ -1133,7 +1133,7 @@ customization.func.tag_move_screen = function (scrdelta)
     if seltag then
         local s = awful.tag.getscreen(seltag) + scrdelta
         if s > scrcount then s = 1 elseif s < 1 then s = scrcount end
-        awful.tag.setscreen(seltag, s)
+        seltag.screen = s
         seltag:view_only()
         awful.screen.focus(s)
     end
@@ -2620,7 +2620,7 @@ for i = 1, 10 do
             function (text)
                 if #text>0 then
                     tag = awful.tag.add(text)
-                    awful.tag.setscreen(tag, scr)
+                    tag.screen = scr
                     awful.tag.move(#tags+1, tag)
                     tag:view_only()
                 end
@@ -2645,7 +2645,7 @@ for i = 1, 10 do
             function (text)
                 if #text>0 then
                     tag = awful.tag.add(text)
-                    awful.tag.setscreen(tag, scr)
+                    tag.screen = scr
                     awful.tag.move(#tags+1, tag)
                     tag:view_only()
                 end
@@ -2673,7 +2673,7 @@ for i = 1, 10 do
                 function (text)
                     if #text>0 then
                         tag = awful.tag.add(text)
-                        awful.tag.setscreen(tag, scr)
+                        tag.screen = scr
                         awful.tag.move(#tags+1, tag)
                         tag:view_only()
                     end
@@ -2702,7 +2702,7 @@ for i = 1, 10 do
                 function (text)
                     if #text>0 then
                         tag = awful.tag.add(text)
-                        awful.tag.setscreen(tag, scr)
+                        tag.screen = scr
                         awful.tag.move(#tags+1, tag)
                         tag:view_only()
                     end
@@ -2914,7 +2914,7 @@ client.connect_signal("manage", customization.func.client_manage_tag)
 -- prevent unintended mouse cursor change
 customization.orig.spawn = awful.spawn.spawn
 awful.spawn.spawn = function (s)
-    customization.orig.spawn(s, false)
+    return customization.orig.spawn(s, false)
 end
 
 -- XDG style autostart with "dex"
