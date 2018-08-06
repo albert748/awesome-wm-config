@@ -1111,7 +1111,7 @@ customization.func.tag_goto = function ()
     function (t)
         local tag = util.tag.name2tag(t)
         if tag then
-            awful.tag.viewonly(tag)
+            tag:view_only()
         end
     end,
     function (t, p, n)
@@ -1134,7 +1134,7 @@ customization.func.tag_move_screen = function (scrdelta)
         local s = awful.tag.getscreen(seltag) + scrdelta
         if s > scrcount then s = 1 elseif s < 1 then s = scrcount end
         awful.tag.setscreen(seltag, s)
-        awful.tag.viewonly(seltag)
+        seltag:view_only()
         awful.screen.focus(s)
     end
 end
@@ -1379,7 +1379,7 @@ do
                     function ()
                         local t = c:tags()
                         if t then
-                            awful.tag.viewonly(t[1])
+                            t[1]:view_only()
                         end
                         clear_instance()
                         client.focus = c
@@ -1418,7 +1418,7 @@ customization.func.all_clients_prompt = function ()
       if c then
         local t = c:tags()
         if t then
-          awful.tag.viewonly(t[1])
+          t[1]:view_only()
         end
         client.focus = c
         c:raise()
@@ -1790,7 +1790,7 @@ awful.button({ }, 1, function (c)
         -- :isvisible() makes no sense
         c.minimized = false
         if not c:isvisible() then
-            awful.tag.viewonly(c:tags()[1])
+            c:tags()[1]:view_only()
         end
         -- This will also un-minimize
         -- the client, if needed
@@ -1857,7 +1857,7 @@ function(s)
                 ncol = customization.default.property.ncol,
             }
             )
-            awful.tag.viewonly(tag)
+            tag:view_only()
         end
     end)
     -- Create a promptbox for each screen
@@ -1966,7 +1966,7 @@ do
                 if f then
                     local tag = tags[tonumber(f:read("*l"))]
                     if tag then
-                        awful.tag.viewonly(tag)
+                        tag:view_only()
                     end
                     f:close()
                 end
@@ -1981,7 +1981,7 @@ do
                     ncol = customization.default.property.ncol,
                 }
                 )
-                awful.tag.viewonly(tag)
+                tag:view_only()
             end
         end
 
@@ -1999,7 +1999,7 @@ do
                     ncol = customization.default.property.ncol,
                 }
                 )
-                awful.tag.viewonly(tag)
+                tag:view_only()
             end
         end
 
@@ -2622,13 +2622,13 @@ for i = 1, 10 do
                     tag = awful.tag.add(text)
                     awful.tag.setscreen(tag, scr)
                     awful.tag.move(#tags+1, tag)
-                    awful.tag.viewonly(tag)
+                    tag:view_only()
                 end
             end,
             nil)
         end
         if tag then
-            awful.tag.viewonly(tag)
+            tag:view_only()
         end
     end),
 
@@ -2647,7 +2647,7 @@ for i = 1, 10 do
                     tag = awful.tag.add(text)
                     awful.tag.setscreen(tag, scr)
                     awful.tag.move(#tags+1, tag)
-                    awful.tag.viewonly(tag)
+                    tag:view_only()
                 end
             end,
             nil)
@@ -2675,7 +2675,7 @@ for i = 1, 10 do
                         tag = awful.tag.add(text)
                         awful.tag.setscreen(tag, scr)
                         awful.tag.move(#tags+1, tag)
-                        awful.tag.viewonly(tag)
+                        tag:view_only()
                     end
                 end,
                 nil)
@@ -2704,7 +2704,7 @@ for i = 1, 10 do
                         tag = awful.tag.add(text)
                         awful.tag.setscreen(tag, scr)
                         awful.tag.move(#tags+1, tag)
-                        awful.tag.viewonly(tag)
+                        tag:view_only()
                     end
                 end,
                 nil)
