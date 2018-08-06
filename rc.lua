@@ -366,11 +366,11 @@ end
 -- {{{ Customized functions
 
 customization.func.system_lock = function ()
-    awful.util.spawn("xscreensaver-command -l")
+    awful.spawn.spawn("xscreensaver-command -l")
 end
 
 customization.func.system_suspend = function ()
-    awful.util.spawn("systemctl suspend")
+    awful.spawn.spawn("systemctl suspend")
 end
 
 customization.func.system_hibernate = function ()
@@ -379,7 +379,7 @@ customization.func.system_hibernate = function ()
     customization.widgets.promptbox[scr].widget,
     function (t)
         if string.lower(t) == 'yes' then
-            awful.util.spawn("systemctl hibernate")
+            awful.spawn.spawn("systemctl hibernate")
         end
     end,
     function (t, p, n)
@@ -393,7 +393,7 @@ customization.func.system_hybrid_sleep = function ()
     customization.widgets.promptbox[scr].widget,
     function (t)
         if string.lower(t) == 'yes' then
-            awful.util.spawn("systemctl hybrid-sleep")
+            awful.spawn.spawn("systemctl hybrid-sleep")
         end
     end,
     function (t, p, n)
@@ -408,7 +408,7 @@ customization.func.system_reboot = function ()
     function (t)
         if string.lower(t) == 'yes' then
             awesome.emit_signal("exit", nil)
-            awful.util.spawn("systemctl reboot")
+            awful.spawn.spawn("systemctl reboot")
         end
     end,
     function (t, p, n)
@@ -423,7 +423,7 @@ customization.func.system_power_off = function ()
     function (t)
         if string.lower(t) == 'yes' then
             awesome.emit_signal("exit", nil)
-            awful.util.spawn("systemctl poweroff")
+            awful.spawn.spawn("systemctl poweroff")
         end
     end,
     function (t, p, n)
@@ -432,7 +432,7 @@ customization.func.system_power_off = function ()
 end
 
 customization.func.app_finder = function ()
-    awful.util.spawn("xfce4-appfinder")
+    awful.spawn.spawn("xfce4-appfinder")
 end
 
 -- {{ client actions
@@ -1581,9 +1581,9 @@ do
     customization.widgets.cpuusage:buttons(awful.util.table.join(
     awful.button({ }, 1, function ()
         if started then
-            awful.util.spawn("pkill -f '" .. prog .. "'")
+            awful.spawn.spawn("pkill -f '" .. prog .. "'")
         else
-            awful.util.spawn(prog)
+            awful.spawn.spawn(prog)
         end
         started=not started
     end)
@@ -1599,9 +1599,9 @@ do
     customization.widgets.memusage:buttons(awful.util.table.join(
     awful.button({ }, 1, function ()
         if started then
-            awful.util.spawn("pkill -f '" .. prog .. "'")
+            awful.spawn.spawn("pkill -f '" .. prog .. "'")
         else
-            awful.util.spawn(prog)
+            awful.spawn.spawn(prog)
         end
         started=not started
     end)
@@ -1655,9 +1655,9 @@ do
     customization.widgets.bat:buttons(awful.util.table.join(
     awful.button({ }, 1, function ()
         if started then
-            awful.util.spawn("pkill -f '" .. prog .. "'")
+            awful.spawn.spawn("pkill -f '" .. prog .. "'")
         else
-            awful.util.spawn(prog)
+            awful.spawn.spawn(prog)
         end
         started=not started
     end)
@@ -1685,19 +1685,19 @@ customization.widgets.mpdstatus = wibox.container.constraint(customization.widge
 do
     customization.widgets.mpdstatus:buttons(awful.util.table.join(
     awful.button({ }, 1, function ()
-        awful.util.spawn("mpc toggle")
+        awful.spawn.spawn("mpc toggle")
     end),
     awful.button({ }, 2, function ()
-        awful.util.spawn("mpc prev")
+        awful.spawn.spawn("mpc prev")
     end),
     awful.button({ }, 3, function ()
-        awful.util.spawn("mpc next")
+        awful.spawn.spawn("mpc next")
     end),
     awful.button({ }, 4, function ()
-        awful.util.spawn("mpc seek -1%")
+        awful.spawn.spawn("mpc seek -1%")
     end),
     awful.button({ }, 5, function ()
-        awful.util.spawn("mpc seek +1%")
+        awful.spawn.spawn("mpc seek +1%")
     end)
     ))
 end
@@ -1711,23 +1711,23 @@ do
     customization.widgets.volume:buttons(awful.util.table.join(
     awful.button({ }, 1, function ()
         if started then
-            awful.util.spawn("pkill -f '" .. prog .. "'")
+            awful.spawn.spawn("pkill -f '" .. prog .. "'")
         else
-            awful.util.spawn(prog)
+            awful.spawn.spawn(prog)
         end
         started=not started
     end),
     awful.button({ }, 2, function ()
-        awful.util.spawn("amixer sset Mic toggle")
+        awful.spawn.spawn("amixer sset Mic toggle")
     end),
     awful.button({ }, 3, function ()
-        awful.util.spawn("amixer sset Master toggle")
+        awful.spawn.spawn("amixer sset Master toggle")
     end),
     awful.button({ }, 4, function ()
-        awful.util.spawn("amixer sset Master 1%-")
+        awful.spawn.spawn("amixer sset Master 1%-")
     end),
     awful.button({ }, 5, function ()
-        awful.util.spawn("amixer sset Master 1%+")
+        awful.spawn.spawn("amixer sset Master 1%+")
     end)
     ))
 end
@@ -1742,17 +1742,17 @@ do
     customization.widgets.date:buttons(awful.util.table.join(
     awful.button({ }, 1, function ()
         if started1 then
-            awful.util.spawn("pkill -f '" .. prog1 .. "'")
+            awful.spawn.spawn("pkill -f '" .. prog1 .. "'")
         else
-            awful.util.spawn(prog1)
+            awful.spawn.spawn(prog1)
         end
         started1=not started1
     end),
     awful.button({ }, 3, function ()
         if started2 then
-            awful.util.spawn("pkill -f '" .. prog2 .. "'")
+            awful.spawn.spawn("pkill -f '" .. prog2 .. "'")
         else
-            awful.util.spawn(prog2)
+            awful.spawn.spawn(prog2)
         end
         started2=not started2
     end)
@@ -2082,7 +2082,7 @@ awful.key({ modkey }, "F1", customization.func.help),
 awful.key({ modkey, "Shift" }, "F1", hotkeys_popup.show_help),
 
 awful.key({ "Ctrl", "Shift" }, "Escape", function ()
-    awful.util.spawn(tools.system.taskmanager)
+    awful.spawn.spawn(tools.system.taskmanager)
 end),
 
 --- Layout
@@ -2113,7 +2113,7 @@ awful.key({modkey}, "F2", function()
     awful.prompt.run(
     {prompt = "Run: "},
     customization.widgets.promptbox[awful.screen.focused()].widget,
-    awful.util.spawn, awful.completion.shell,
+    awful.spawn.spawn, awful.completion.shell,
     awful.util.getdir("cache") .. "/history"
     )
 end),
@@ -2122,7 +2122,7 @@ awful.key({modkey}, "r", function()
     awful.prompt.run(
     {prompt = "Run: "},
     customization.widgets.promptbox[awful.screen.focused()].widget,
-    awful.util.spawn, awful.completion.shell,
+    awful.spawn.spawn, awful.completion.shell,
     awful.util.getdir("cache") .. "/history"
     )
 end),
@@ -2142,7 +2142,7 @@ awful.key({modkey}, "F4", function()
 end),
 
 awful.key({ modkey }, "c", function ()
-    awful.util.spawn(tools.editor.primary .. " " .. awful.util.getdir("config") .. "/rc.lua" )
+    awful.spawn.spawn(tools.editor.primary .. " " .. awful.util.getdir("config") .. "/rc.lua" )
 end),
 
 awful.key({ modkey, "Shift" }, "/", function() mymainmenu:toggle({keygrabber=true}) end),
@@ -2168,9 +2168,9 @@ awful.key({ modkey, }, "x", function() mymainmenu:toggle({keygrabber=true}) end)
 
 awful.key({ modkey, }, "X", function() mymainmenu:toggle({keygrabber=true}) end),
 
-uniarg:key_repeat({ modkey,           }, "Return", function () awful.util.spawn(tools.terminal) end),
+uniarg:key_repeat({ modkey,           }, "Return", function () awful.spawn.spawn(tools.terminal) end),
 
-uniarg:key_repeat({ modkey, "Mod1" }, "Return", function () awful.util.spawn("gksudo " .. tools.terminal) end),
+uniarg:key_repeat({ modkey, "Mod1" }, "Return", function () awful.spawn.spawn("gksudo " .. tools.terminal) end),
 
 -- dynamic tagging
 
@@ -2290,200 +2290,200 @@ awful.key({ modkey, }, "/", customization.func.app_finder),
 --- everyday
 
 uniarg:key_repeat({ modkey, "Mod1", }, "l", function ()
-    awful.util.spawn(tools.system.filemanager)
+    awful.spawn.spawn(tools.system.filemanager)
 end),
 
 uniarg:key_repeat({ modkey,  }, "e", function ()
-    awful.util.spawn(tools.system.filemanager)
+    awful.spawn.spawn(tools.system.filemanager)
 end),
 
 uniarg:key_repeat({ modkey,  }, "E", function ()
-    awful.util.spawn(tools.system.filemanager)
+    awful.spawn.spawn(tools.system.filemanager)
 end),
 
 uniarg:key_repeat({ modkey, "Mod1", }, "p", function ()
-    awful.util.spawn("putty")
+    awful.spawn.spawn("putty")
 end),
 
 uniarg:key_repeat({ modkey, "Mod1", }, "r", function ()
-    awful.util.spawn("remmina")
+    awful.spawn.spawn("remmina")
 end),
 
 uniarg:key_repeat({ modkey, }, "i", function ()
-    awful.util.spawn(tools.editor.primary)
+    awful.spawn.spawn(tools.editor.primary)
 end),
 
 uniarg:key_repeat({ modkey, "Shift" }, "i", function ()
-    awful.util.spawn(tools.editor.secondary)
+    awful.spawn.spawn(tools.editor.secondary)
 end),
 
 uniarg:key_repeat({ modkey, }, "b", function ()
-    awful.util.spawn(tools.browser.primary)
+    awful.spawn.spawn(tools.browser.primary)
 end),
 
 uniarg:key_repeat({ modkey, "Shift" }, "b", function ()
-    awful.util.spawn(tools.browser.secondary)
+    awful.spawn.spawn(tools.browser.secondary)
 end),
 
 uniarg:key_repeat({ modkey, "Mod1", }, "v", function ()
-    awful.util.spawn("virtualbox")
+    awful.spawn.spawn("virtualbox")
 end),
 
 uniarg:key_repeat({modkey, "Shift" }, "\\", function()
-    awful.util.spawn("kmag")
+    awful.spawn.spawn("kmag")
 end),
 
 --- the rest
 
 uniarg:key_repeat({}, "XF86AudioPrev", function ()
-    awful.util.spawn("mpc prev")
+    awful.spawn.spawn("mpc prev")
 end),
 
 uniarg:key_repeat({}, "XF86AudioNext", function ()
-    awful.util.spawn("mpc next")
+    awful.spawn.spawn("mpc next")
 end),
 
 awful.key({}, "XF86AudioPlay", function ()
-    awful.util.spawn("mpc toggle")
+    awful.spawn.spawn("mpc toggle")
 end),
 
 awful.key({}, "XF86AudioStop", function ()
-    awful.util.spawn("mpc stop")
+    awful.spawn.spawn("mpc stop")
 end),
 
 uniarg:key_numarg({}, "XF86AudioRaiseVolume",
 function ()
-  awful.util.spawn("amixer sset Master 5%+")
+  awful.spawn.spawn("amixer sset Master 5%+")
 end,
 function (n)
-  awful.util.spawn("amixer sset Master " .. n .. "%+")
+  awful.spawn.spawn("amixer sset Master " .. n .. "%+")
 end),
 
 uniarg:key_numarg({}, "XF86AudioLowerVolume",
 function ()
-  awful.util.spawn("amixer sset Master 5%-")
+  awful.spawn.spawn("amixer sset Master 5%-")
 end,
 function (n)
-  awful.util.spawn("amixer sset Master " .. n .. "%-")
+  awful.spawn.spawn("amixer sset Master " .. n .. "%-")
 end),
 
 awful.key({}, "XF86AudioMute", function ()
-    awful.util.spawn("amixer sset Master toggle")
+    awful.spawn.spawn("amixer sset Master toggle")
 end),
 
 awful.key({}, "XF86AudioMicMute", function ()
-    awful.util.spawn("amixer sset Mic toggle")
+    awful.spawn.spawn("amixer sset Mic toggle")
 end),
 
 awful.key({}, "XF86ScreenSaver", function ()
-    awful.util.spawn("xscreensaver-command -l")
+    awful.spawn.spawn("xscreensaver-command -l")
 end),
 
 awful.key({}, "XF86WebCam", function ()
-    awful.util.spawn("cheese")
+    awful.spawn.spawn("cheese")
 end),
 
 uniarg:key_numarg({}, "XF86MonBrightnessUp",
 function ()
-  awful.util.spawn("xbacklight -inc 10")
+  awful.spawn.spawn("xbacklight -inc 10")
 end,
 function (n)
-  awful.util.spawn("xbacklight -inc " .. n)
+  awful.spawn.spawn("xbacklight -inc " .. n)
 end),
 
 uniarg:key_numarg({}, "XF86MonBrightnessDown",
 function ()
-  awful.util.spawn("xbacklight -dec 10")
+  awful.spawn.spawn("xbacklight -dec 10")
 end,
 function (n)
-  awful.util.spawn("xbacklight -dec " .. n)
+  awful.spawn.spawn("xbacklight -dec " .. n)
 end),
 
 awful.key({}, "XF86WLAN", function ()
-    awful.util.spawn("nm-connection-editor")
+    awful.spawn.spawn("nm-connection-editor")
 end),
 
 awful.key({}, "XF86Display", function ()
-    awful.util.spawn("arandr")
+    awful.spawn.spawn("arandr")
 end),
 
 awful.key({}, "Print", function ()
-    awful.util.spawn("xfce4-screenshooter")
+    awful.spawn.spawn("xfce4-screenshooter")
 end),
 
 uniarg:key_repeat({}, "XF86Launch1", function ()
-    awful.util.spawn(tools.terminal)
+    awful.spawn.spawn(tools.terminal)
 end),
 
 awful.key({ }, "XF86Sleep", function ()
-    awful.util.spawn("systemctl suspend")
+    awful.spawn.spawn("systemctl suspend")
 end),
 
 
 awful.key({ modkey }, "XF86Sleep", function ()
-    awful.util.spawn("systemctl hibernate")
+    awful.spawn.spawn("systemctl hibernate")
 end),
 
 --- hacks for Thinkpad W530 FN mal-function
 
 uniarg:key_repeat({ modkey }, "F10", function ()
-    awful.util.spawn("mpc prev")
+    awful.spawn.spawn("mpc prev")
 end),
 
 awful.key({ modkey }, "F11", function ()
-    awful.util.spawn("mpc toggle")
+    awful.spawn.spawn("mpc toggle")
 end),
 
 uniarg:key_repeat({ modkey }, "F12", function ()
-    awful.util.spawn("mpc next")
+    awful.spawn.spawn("mpc next")
 end),
 
 uniarg:key_repeat({ modkey, "Control" }, "Left", function ()
-    awful.util.spawn("mpc prev")
+    awful.spawn.spawn("mpc prev")
 end),
 
 awful.key({ modkey, "Control" }, "Down", function ()
-    awful.util.spawn("mpc toggle")
+    awful.spawn.spawn("mpc toggle")
 end),
 
 uniarg:key_repeat({ modkey, "Control" }, "Right", function ()
-    awful.util.spawn("mpc next")
+    awful.spawn.spawn("mpc next")
 end),
 
 awful.key({ modkey, "Control" }, "Up", function ()
-    awful.util.spawn("pavucontrol")
+    awful.spawn.spawn("pavucontrol")
 end),
 
 uniarg:key_numarg({ modkey, "Shift" }, "Left",
 function ()
-  awful.util.spawn("mpc seek -1%")
+  awful.spawn.spawn("mpc seek -1%")
 end,
 function (n)
-  awful.util.spawn("mpc seek -" .. n .. "%")
+  awful.spawn.spawn("mpc seek -" .. n .. "%")
 end),
 
 uniarg:key_numarg({ modkey, "Shift" }, "Right",
 function ()
-  awful.util.spawn("mpc seek +1%")
+  awful.spawn.spawn("mpc seek +1%")
 end,
 function (n)
-  awful.util.spawn("mpc seek +" .. n .. "%")
+  awful.spawn.spawn("mpc seek +" .. n .. "%")
 end),
 
 uniarg:key_numarg({ modkey, "Shift" }, "Down",
 function ()
-  awful.util.spawn("mpc seek -10%")
+  awful.spawn.spawn("mpc seek -10%")
 end,
 function (n)
-  awful.util.spawn("mpc seek -" .. n .. "%")
+  awful.spawn.spawn("mpc seek -" .. n .. "%")
 end),
 
 uniarg:key_numarg({ modkey, "Shift" }, "Up",
 function ()
-  awful.util.spawn("mpc seek +10%")
+  awful.spawn.spawn("mpc seek +10%")
 end,
 function (n)
-  awful.util.spawn("mpc seek +" .. n .. "%")
+  awful.spawn.spawn("mpc seek +" .. n .. "%")
 end),
 
 nil
@@ -2912,9 +2912,9 @@ client.connect_signal("manage", customization.func.client_manage_tag)
 
 -- disable startup-notification globally
 -- prevent unintended mouse cursor change
-customization.orig.awful_util_spawn = awful.util.spawn
-awful.util.spawn = function (s)
-    customization.orig.awful_util_spawn(s, false)
+customization.orig.spawn = awful.spawn.spawn
+awful.spawn.spawn = function (s)
+    customization.orig.spawn(s, false)
 end
 
 -- XDG style autostart with "dex"
